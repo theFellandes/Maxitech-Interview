@@ -8,7 +8,9 @@ The application should be built using the FastAPI web framework and the LangGrap
 #TODO: Revise this paragraph.
 
 ## Requirements
-- Python 3.12
+- Python 3.12 (Optional for local development)
+- Docker Engine ≥ 20.10
+- Docker Compose ≥ 2.17
 - FastAPI
 - LangGraph
 - Wikipedia API
@@ -24,6 +26,13 @@ provides a simple way to build conversational AI applications.
 - Wikipedia API: Wikipedia API is used to retrieve documents from Wikipedia.
 #TODO: Missing Requirements Explanation
 
+## Branch Structure
+- master: The main branch of the project. This branch is used for production releases.
+- feature: The feature branch of the project. This branch is used for developing new features. Subbranches of this branch are created for each feature.
+- hotfix: The hotfix branch of the project. This branch is used for fixing bugs in the production code.
+#TODO: Maybe add a release branch.
+#TODO: Add branch structure image.
+
 ## Project Structure
 #TODO: Missing project structure
 
@@ -31,20 +40,62 @@ provides a simple way to build conversational AI applications.
 1. Clone the repository
 ```bash
 git clone https://github.com/theFellandes/Maxitech-Interview.git
+cd Maxitech-Interview
 ```
 2. Install the dependencies
 ```bash
+# For local development (optional)
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# venv\Scripts\activate  # Windows
 pip install -r requirements.txt
+
+# For Docker setup (required)
+docker-compose build
 ```
 3. Run the application
 ```bash
-docker-compose up --build
+# Clean previous builds (if any)
+docker-compose down -v --remove-orphans
+docker system prune -a --volumes -f
+
+# Start services
+docker-compose up --build -d
 ```
-4. Open the application in your browser
+4. Check if the application is installed correctly
 ```bash
-http://localhost:8000
+# Check container status
+docker-compose ps
+
+# Verify Python environment
+docker-compose exec web python -c "import sys; print(sys.path)"
+# Should show: ... '/app' ...
+
+# Confirm file structure
+docker-compose exec web ls -l /app/src/app/
+# Expected output:
+# total 8
+# -rw-r--r-- 1 root root 0 Feb 14 21:13 __init__.py
+# -rw-r--r-- 1 root root 78 Feb 14 21:13 main.py
+
+# Test FastAPI imports
+docker-compose exec web python -c "from src.app.main import app; print(f'Success! FastAPI app: {app}')"
+# Should show: Success! FastAPI app: <FastAPI(...)>
 ```
-#TODO: Missing Installation steps
+5. Additional Commands
+```bash
+# View logs
+docker-compose logs -f web
+
+# Run tests (if configured)
+docker-compose exec web pytest tests/
+
+# Clean shutdown
+docker-compose down -v --remove-orphans
+```
+
+## Endpoints
+#TODO: Missing Endpoints
 
 ## Usage
 1. Open the application in your browser
