@@ -1,0 +1,3 @@
+#TODO: Will remove this temp file.
+
+This folder will contain project's tinkering stuff, like my drawings, state diagrams, etc.
