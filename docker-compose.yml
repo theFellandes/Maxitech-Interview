@@ -5,14 +5,8 @@ services:
     build: .
     ports:
       - "8000:8000"
+    volumes:
+      - ./src:/app/src
     environment:
       - MODE=development
-    # Add explicit network binding
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --timeout-keep-alive 30
-    networks:
-      - fastapi-net
-
-networks:
-  fastapi-net:
-    driver: bridge
-
+    command: uvicorn src.app.main:app --host 0.0.0.0 --port 8000 --reload

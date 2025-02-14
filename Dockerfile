@@ -1,21 +1,24 @@
 FROM python:3.12-slim
 
-# Install essential build tools
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends gcc python3-dev curl && \
-    rm -rf /var/lib/apt/lists/*
-
 WORKDIR /app
 
-# Use absolute path for requirements
-COPY ./requirements.txt /app/requirements.txt
+# Install system dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends curl && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy requirements
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy all files with proper ownership
-COPY --chown=1000:1000 . /app
+# Copy application code
+COPY src/ /app/src/
 
-# Ensure correct Python path
+# Configure Python environment
 ENV PYTHONPATH=/app \
-    PYTHONUNBUFFERED=1
+    PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+EXPOSE 8000
+
+CMD ["uvicorn", "src.app.main:app", "--host", "0.0.0.0", "--port", "8000"]
