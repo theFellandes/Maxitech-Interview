@@ -1,4 +1,4 @@
-from ingestion.chroma_ingestion import ChromaIngestion
+from src.ingestion.chroma_ingestion import ChromaIngestion
 from dotenv import load_dotenv
 load_dotenv()
 

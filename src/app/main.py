@@ -4,6 +4,9 @@ Main module for FastAPI application.
 
 from fastapi import FastAPI
 
+from src.ingestion.chroma_ingestion import ChromaIngestion
+from langchain_community.embeddings import OpenAIEmbeddings
+
 app = FastAPI()
 
 
@@ -12,6 +15,8 @@ def read_root():
     """
     Root endpoint returning a welcome message.
     """
+    chroma_ingestion = ChromaIngestion(embeddings=OpenAIEmbeddings())
+    print(chroma_ingestion.retrieve_documents("Gelir Vergisi Kanununa 5281"))
     return {"message": "Welcome to the FastAPI application"}
 
 
