@@ -4,9 +4,42 @@ services:
   web:
     build: .
     ports:
-      - "8000:8000"
+      - "8080:8080"
     volumes:
       - ./src:/app/src
     environment:
       - MODE=development
-    command: uvicorn src.app.main:app --host 0.0.0.0 --port 8000 --reload
+      - CHROMA_SERVER_HOST=chromadb
+      - CHROMA_SERVER_HTTP_PORT=8000
+    command: uvicorn src.app.main:app --host 0.0.0.0 --port 8080 --reload
+    depends_on:
+      chromadb:
+        condition: service_healthy
+    networks:
+      - vectornet
+
+  chromadb:
+    image: chromadb/chroma:0.5.4
+    container_name: chromadb
+    ports:
+      - "8001:8000"
+    environment:
+      - CHROMA_SERVER_AUTH_CREDENTIALS=admin:admin  # Optional basic auth
+      - ALLOW_RESET=TRUE
+    volumes:
+      - chroma_data:/chroma/chroma
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/heartbeat"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - vectornet
+    restart: unless-stopped
+
+volumes:
+  chroma_data:
+
+networks:
+  vectornet:
+    driver: bridge
