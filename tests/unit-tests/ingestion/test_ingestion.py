@@ -12,7 +12,8 @@ console_logger = CustomLogger(handler_type='console')
 def test_ingestion():
     chroma_ingestion = ChromaIngestion(embeddings=OpenAIEmbeddings())
     chroma_ingestion.load_docs()
-    chroma_ingestion.insert_documents(chroma_ingestion.text_splitter())
+    retriever = chroma_ingestion.insert_documents(chroma_ingestion.text_splitter())
+    print(retriever.invoke("Gelir Vergisi Kanununa 5281"))
 
 
 if __name__ == '__main__':
