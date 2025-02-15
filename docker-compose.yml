@@ -12,6 +12,7 @@ services:
       - CHROMA_SERVER_HOST=chromadb
       - CHROMA_SERVER_HTTP_PORT=8000
     command: uvicorn src.app.main:app --host 0.0.0.0 --port 8080 --reload
+    env_file: .env
     depends_on:
       chromadb:
         condition: service_healthy

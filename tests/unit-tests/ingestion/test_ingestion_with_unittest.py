@@ -1,9 +1,8 @@
-import os
 import unittest
 from dotenv import load_dotenv
 load_dotenv()
 from langchain_community.embeddings import OpenAIEmbeddings
-from ingestion.chroma_ingestion import ChromaIngestion
+from src.ingestion.chroma_ingestion import ChromaIngestion
 from langchain_core.documents.base import Document
 
 
