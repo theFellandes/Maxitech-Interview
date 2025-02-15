@@ -16,7 +16,12 @@ class ChromaIngestion(Ingestion):
         Embed the text splits using the specified embedding model and insert to vector database.
         """
         # Create the Chroma vectorstore
-        vectorstore = Chroma.from_documents(text_splits, self.embeddings)
+        vectorstore = Chroma.from_documents(
+            documents=text_splits,
+            collection_name="rag-chroma",
+            embedding=self.embeddings,
+            persist_directory="./.chroma",
+        )
         logging.info("Chroma index is ready for retrieval!")
         return vectorstore.as_retriever()
 
@@ -24,10 +29,10 @@ class ChromaIngestion(Ingestion):
         """
         Retrieve documents related to the given query.
         """
-        vectorstore = Chroma(
-            embedding_function=self.embeddings,
-        )
-
         # Initialize the retriever
-        retriever = SelfQueryRetriever(vectorstore=vectorstore)
+        retriever = Chroma(
+            collection_name="rag-chroma",
+            persist_directory="./.chroma",
+            embedding_function=self.embeddings,
+        ).as_retriever()
         return retriever.invoke(query)
