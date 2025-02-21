@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LangGraph Chat Bot</title>
+  <style>
+    /* Overall page style */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #74ABE2, #5563DE);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333;
+    }
+    /* Container style */
+    .chat-container {
+      width: 700px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    /* Header style */
+    .chat-header {
+      background: #5563DE;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    /* Chat messages area */
+    .chat-box {
+      flex: 1;
+      padding: 20px;
+      background: #f5f5f5;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .message {
+      padding: 10px 15px;
+      border-radius: 5px;
+      max-width: 80%;
+      word-wrap: break-word;
+    }
+    .user {
+      background: #DCF8C6;
+      align-self: flex-end;
+    }
+    .bot {
+      background: #fff;
+      border: 1px solid #ccc;
+      align-self: flex-start;
+    }
+    /* Input area styling */
+    .chat-input {
+      background: #eee;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+    }
+    .chat-input input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .chat-input button {
+      margin-left: 10px;
+      padding: 10px 20px;
+      background: #5563DE;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s ease;
+    }
+    .chat-input button:hover {
+      background: #3f4bc1;
+    }
+    .loading-indicator {
+      margin-left: 10px;
+      font-size: 16px;
+      color: #555;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">
+      <h2>LangGraph Chat Bot</h2>
+    </div>
+    <div class="chat-box" id="chat-box">
+      {% for msg in history %}
+        <div class="message {% if msg.sender == 'User' %}user{% else %}bot{% endif %}">
+          <strong>{{ msg.sender }}:</strong> {{ msg.message }}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="chat-input">
+      <form id="chat-form" action="/chat" method="post">
+        <input type="hidden" name="session_id" value="{{ session_id }}">
+        <input type="text" id="user_message" name="user_message" placeholder="Enter your message" required>
+        <button type="submit" id="submit-btn">Send</button>
+        <span class="loading-indicator" id="loading-indicator">Waiting...</span>
+      </form>
+    </div>
+  </div>
+  <script>
+    // Show a loading indicator when the form is submitted.
+    document.getElementById('chat-form').addEventListener('submit', function(e) {
+      var submitBtn = document.getElementById('submit-btn');
+      var loadingIndicator = document.getElementById('loading-indicator');
+      submitBtn.disabled = true;
+      loadingIndicator.style.display = 'inline';
+    });
+  </script>
+</body>
+</html>

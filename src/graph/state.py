@@ -10,6 +10,7 @@ class GraphState(TypedDict):
     Represents the state of our graph.
 
     Attributes:
+        chat_history: Chat history
         original_question: Question from the user
         clarified_question: Clarified question
         wikipedia_docs: Wikipedia documents
@@ -19,6 +20,7 @@ class GraphState(TypedDict):
         needs_clarification: Whether the question needs clarification
         session_id: Session ID
     """
+    chat_history: List[str]          # Stores all previous messages (user & bot)
     original_question: str
     clarified_question: Optional[str]
     wikipedia_docs: List[Document]

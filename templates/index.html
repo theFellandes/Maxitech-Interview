@@ -1,34 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Chat Bot</title>
-    <style>
-        body { font-family: Arial, sans-serif; }
-        .chat-container { width: 600px; margin: auto; }
-        .chat-box { border: 1px solid #ccc; padding: 10px; height: 400px; overflow-y: scroll; background-color: #f9f9f9; }
-        .message { margin: 10px 0; }
-        .user { color: blue; }
-        .bot { color: green; }
-        .input-container { margin-top: 20px; }
-    </style>
+  <meta charset="UTF-8">
+  <title>Multi Agent Chat Bot</title>
+  <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <div class="chat-container">
-        <h2>Chat Bot</h2>
-        <div class="chat-box">
-            {% for msg in history %}
-                <div class="message">
-                    <strong class="{{ msg.sender|lower }}">{{ msg.sender }}:</strong> {{ msg.message }}
-                </div>
-            {% endfor %}
+  <div class="chat-container">
+    <header class="chat-header">
+      <h1>Bilmio Chat Bot</h1>
+    </header>
+    <div class="chat-window" id="chat-window">
+      {% for msg in history %}
+        <div class="message {% if msg.sender == 'User' %}user-message{% else %}bot-message{% endif %}">
+          <strong>{{ msg.sender }}:</strong> {{ msg.message }}
         </div>
-        <div class="input-container">
-            <form action="/chat" method="post">
-                <input type="hidden" name="session_id" value="{{ session_id }}">
-                <input type="text" name="user_message" placeholder="Enter your message" style="width: 80%;" required>
-                <button type="submit">Send</button>
-            </form>
-        </div>
+      {% endfor %}
     </div>
+    <form id="chat-form" class="chat-form">
+      <input type="hidden" name="session_id" id="session_id" value="{{ session_id }}">
+      <input type="text" id="user-input" class="chat-input" placeholder="Type your message..." autocomplete="off" required>
+      <button type="submit" id="submit-btn" class="chat-submit">Send</button>
+      <span class="loading-indicator" id="loading-indicator">Sending...</span>
+    </form>
+  </div>
+  <script src="/static/scripts.js"></script>
 </body>
 </html>

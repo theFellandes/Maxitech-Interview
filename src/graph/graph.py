@@ -17,10 +17,10 @@ def build_workflow() -> StateGraph:
     workflow.add_node("rerank", nodes.rerank_documents)
     workflow.add_node("generate_answer", nodes.generate_answer)
 
-    # Set the starting point
+    # Set the entry point for the conversation; initially, ambiguity is checked.
     workflow.set_entry_point("detect_ambiguity")
 
-    # Conditional edge: if ambiguity is detected, go to clarification; otherwise, retrieve Wikipedia.
+    # Define conditional edges:
     workflow.add_conditional_edges(
         "detect_ambiguity",
         lambda state: "clarify" if state["needs_clarification"] else "retrieve_wikipedia",
