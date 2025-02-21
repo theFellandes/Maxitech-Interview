@@ -1,4 +1,12 @@
-fastapi~=0.115.8
-pydantic~=2.10.6
-langchain~=0.3.18
-python-dotenv~=1.0.1
+fastapi>=0.100.0
+uvicorn>=0.22.0
+langchain>=0.0.260
+langgraph>=0.2.74
+langserve>=0.0.1
+python-dotenv>=1.0.0
+scikit-learn>=1.2.2
+requests>=2.31.0
+beautifulsoup4>=4.12.2
+pydantic>=2.0.0
+jinja2>=3.1.2
+python-multipart>=0.0.5

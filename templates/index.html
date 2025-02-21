@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Bot</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .chat-container { width: 600px; margin: auto; }
+        .chat-box { border: 1px solid #ccc; padding: 10px; height: 400px; overflow-y: scroll; background-color: #f9f9f9; }
+        .message { margin: 10px 0; }
+        .user { color: blue; }
+        .bot { color: green; }
+        .input-container { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <h2>Chat Bot</h2>
+        <div class="chat-box">
+            {% for msg in history %}
+                <div class="message">
+                    <strong class="{{ msg.sender|lower }}">{{ msg.sender }}:</strong> {{ msg.message }}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="input-container">
+            <form action="/chat" method="post">
+                <input type="hidden" name="session_id" value="{{ session_id }}">
+                <input type="text" name="user_message" placeholder="Enter your message" style="width: 80%;" required>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

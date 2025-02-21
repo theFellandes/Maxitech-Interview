@@ -1,25 +1,21 @@
-# TODO: Get the image from Langgraph.
+# Use an official Python runtime as a base image
 FROM python:3.12-slim
 
+# Set environment variable to prevent buffering
+ENV PYTHONUNBUFFERED=1
+
+# Set working directory
 WORKDIR /app
 
-# Install system dependencies
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends curl && \
-    rm -rf /var/lib/apt/lists/*
+# Copy dependency files and install dependencies
+COPY requirements.txt .
+RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Copy requirements
-COPY src/app/requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy the rest of the application code
+COPY . .
 
-# Copy application code
-COPY src/ /app/src/
-
-# Configure Python environment
-ENV PYTHONPATH=/app \
-    PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1
-
+# Expose port 8000 for FastAPI
 EXPOSE 8000
 
-CMD ["uvicorn", "src.app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Run the FastAPI server using uvicorn
+CMD ["uvicorn", "serve:app", "--host", "0.0.0.0", "--port", "8000"]

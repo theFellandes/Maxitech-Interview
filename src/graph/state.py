@@ -1,5 +1,7 @@
+"""
+This module contains the GraphState class, which represents the state of our graph.
+"""
 from typing import List, TypedDict, Optional
-
 from langchain_core.documents import Document
 
 
