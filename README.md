@@ -156,6 +156,12 @@ neobrutalist design elements and a more user-friendly color scheme.
 
 ![img_2.png](md-resources/img_2.png)
 
+## Monitoring
+
+I've used LangSmith for the monitoring and this screenshot shows the monitoring of the application.
+
+![img_3.png](md-resources/img_3.png)
+
 ## Authors
 - [Oğuzhan Güngör](https://github.com/theFellandes/)
 
