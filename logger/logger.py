@@ -3,6 +3,7 @@ A custom logger that is used for logging function calls and their results.
 """
 import logging
 import functools
+import datetime
 
 
 class CustomLogger:
@@ -53,3 +54,11 @@ class CustomLogger:
             return result
 
         return wrapper
+
+    @staticmethod
+    def log_message(session_id: str, node_name: str, message: str):
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        log_entry = f"[{timestamp}] [Session: {session_id}] [{node_name}] {message}"
+        print(log_entry)
+        with open("workflow.log", "a") as f:
+            f.write(log_entry + "\n")

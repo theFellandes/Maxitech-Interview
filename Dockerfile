@@ -1,3 +1,4 @@
+# TODO: Get the image from Langgraph.
 FROM python:3.12-slim
 
 WORKDIR /app
