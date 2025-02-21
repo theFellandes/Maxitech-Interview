@@ -72,8 +72,12 @@ docker-compose build
 docker-compose down -v --remove-orphans
 docker system prune -a --volumes -f
 
-# Start services
-docker-compose up --build -d
+# Build the application
+docker build -t langgraph-app .
+
+# Start application
+docker run -p 8000:8000 langgraph-app
+
 ```
 4. Check if the application is installed correctly
 ```bash

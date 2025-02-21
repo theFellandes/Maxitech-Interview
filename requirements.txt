@@ -11,3 +11,13 @@ beautifulsoup4>=4.12.2
 pydantic>=2.0.0
 jinja2>=3.1.2
 python-multipart>=0.0.5
+langchain-community>=0.3.16
+langgraph
+langgraph-sdk
+langsmith
+langchain-community
+langchain-core
+langchain-openai
+python-dotenv
+chromadb
+wikipedia

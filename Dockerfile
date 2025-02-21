@@ -1,4 +1,4 @@
-FROM langchain/langgraph-api:3.13
+FROM langchain/langchain:latest
 
 # Set environment variable to disable output buffering
 ENV PYTHONUNBUFFERED=1
