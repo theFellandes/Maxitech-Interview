@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Multi Agent Chat Bot</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="chat-container">
+    <header class="chat-header">
+      <h1>Bilmio Chat Bot</h1>
+    </header>
+    <div class="chat-window" id="chat-window">
+      {% for msg in history %}
+        <div class="message {% if msg.sender == 'User' %}user-message{% else %}bot-message{% endif %}">
+          <strong>{{ msg.sender }}:</strong> {{ msg.message }}
+        </div>
+      {% endfor %}
+    </div>
+    <form id="chat-form" class="chat-form">
+      <input type="hidden" name="session_id" id="session_id" value="{{ session_id }}">
+      <input type="text" id="user-input" class="chat-input" placeholder="Type your message..." autocomplete="off" required>
+      <button type="submit" id="submit-btn" class="chat-submit">Send</button>
+      <span class="loading-indicator" id="loading-indicator">Sending...</span>
+    </form>
+  </div>
+  <script src="/static/scripts.js"></script>
+</body>
+</html>

@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 load_dotenv()
 from langchain_community.embeddings import OpenAIEmbeddings
 
+# TODO: Add langserve ui
 app = FastAPI()
 
 ROOT = "/"

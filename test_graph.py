@@ -6,4 +6,4 @@ from src.graph.graph import app
 
 if __name__ == "__main__":
     print("Hello Advanced RAG")
-    print(app.invoke(input={"question": "Where is OpenAI headquartered?"}))
+    print(app.invoke(input={"question": "Where is Tesla?"}))

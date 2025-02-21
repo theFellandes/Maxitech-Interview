@@ -1,24 +1,23 @@
-FROM python:3.12-slim
+FROM langchain/langgraph-api:3.13
 
+# Set environment variable to disable output buffering
+ENV PYTHONUNBUFFERED=1
+
+# Set the working directory inside the container
 WORKDIR /app
 
-# Install system dependencies
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends curl && \
-    rm -rf /var/lib/apt/lists/*
+# If you have additional Python dependencies beyond what's provided by the base image,
+# copy your requirements.txt and install them.
+# If the base image already has everything you need, you can omit this.
+COPY requirements.txt .
+RUN pip install --upgrade pip --no-cache-dir && \
+    pip install --no-cache-dir -r requirements.txt --trusted-host pypi.org --trusted-host files.pythonhosted.org
 
-# Copy requirements
-COPY src/app/requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy the rest of your application code into the container
+COPY . .
 
-# Copy application code
-COPY src/ /app/src/
-
-# Configure Python environment
-ENV PYTHONPATH=/app \
-    PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1
-
+# Expose port 8000 for the FastAPI app
 EXPOSE 8000
 
-CMD ["uvicorn", "src.app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Start the FastAPI application using Uvicorn
+CMD ["uvicorn", "serve:app", "--host", "0.0.0.0", "--port", "8000"]
