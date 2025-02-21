@@ -1,6 +1,7 @@
 fastapi>=0.100.0
 uvicorn>=0.22.0
 langchain>=0.0.260
+langchain-openai>=0.0.148
 langgraph>=0.2.74
 langserve>=0.0.1
 python-dotenv>=1.0.0

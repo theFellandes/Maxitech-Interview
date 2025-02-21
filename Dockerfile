@@ -1,21 +1,23 @@
-# Use an official Python runtime as a base image
-FROM python:3.12-slim
+FROM langchain/langgraph-api:3.13
 
-# Set environment variable to prevent buffering
+# Set environment variable to disable output buffering
 ENV PYTHONUNBUFFERED=1
 
-# Set working directory
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy dependency files and install dependencies
+# If you have additional Python dependencies beyond what's provided by the base image,
+# copy your requirements.txt and install them.
+# If the base image already has everything you need, you can omit this.
 COPY requirements.txt .
-RUN pip install --upgrade pip && pip install -r requirements.txt
+RUN pip install --upgrade pip --no-cache-dir && \
+    pip install --no-cache-dir -r requirements.txt --trusted-host pypi.org --trusted-host files.pythonhosted.org
 
-# Copy the rest of the application code
+# Copy the rest of your application code into the container
 COPY . .
 
-# Expose port 8000 for FastAPI
+# Expose port 8000 for the FastAPI app
 EXPOSE 8000
 
-# Run the FastAPI server using uvicorn
+# Start the FastAPI application using Uvicorn
 CMD ["uvicorn", "serve:app", "--host", "0.0.0.0", "--port", "8000"]

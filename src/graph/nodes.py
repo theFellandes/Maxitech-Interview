@@ -1,7 +1,6 @@
 """
 This module contains the node functions for the graph-based question answering system.
 """
-
 from dotenv import load_dotenv
 load_dotenv()
 from langchain_core.documents import Document

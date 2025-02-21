@@ -5,7 +5,6 @@ This is a take home assignment for the AI Engineer role at Maxitech Entrepeer.
 The assignment is to build a simple web application 
 that allows users to chat with a chatbot and retrieve documents from Wikipedia or Web Search. 
 The application should be built using the FastAPI web framework and the LangGraph framework.
-#TODO: Revise this paragraph.
 
 ## Requirements
 - Python 3.12 (Optional for local development)
@@ -15,7 +14,20 @@ The application should be built using the FastAPI web framework and the LangGrap
 - LangGraph
 - Wikipedia API
 - Web Search API
-#TODO: Missing Requirements
+- Libraries:
+  - fastapi>=0.100.0
+  - uvicorn>=0.22.0
+  - langchain>=0.0.260
+  - langchain-openai>=0.0.148
+  - langgraph>=0.2.74
+  - langserve>=0.0.1
+  - python-dotenv>=1.0.0
+  - scikit-learn>=1.2.2
+  - requests>=2.31.0
+  - beautifulsoup4>=4.12.2
+  - pydantic>=2.0.0
+  - jinja2>=3.1.2
+  - python-multipart>=0.0.5
 
 ### Requirements Explanation
 - Python 3.12: For the programming language Python was picked due to requirement of the project. This version was picked
@@ -24,17 +36,18 @@ due to its speed compared to Python 3.10. Also, Python 3.12 has better exception
 - LangGraph: LangGraph is a framework for building conversational AI applications. It is built on top of FastAPI and
 provides a simple way to build conversational AI applications.
 - Wikipedia API: Wikipedia API is used to retrieve documents from Wikipedia.
-#TODO: Missing Requirements Explanation
+- Tavily API: Tavily API is used to retrieve documents from the web.
 
 ## Branch Structure
 - master: The main branch of the project. This branch is used for production releases.
 - feature: The feature branch of the project. This branch is used for developing new features. Subbranches of this branch are created for each feature.
 - hotfix: The hotfix branch of the project. This branch is used for fixing bugs in the production code.
-#TODO: Maybe add a release branch.
-#TODO: Add branch structure image.
 
 ## Project Structure
-#TODO: Missing project structure
+src/graph -> Contains the graph structure of the project. This structure is used to build the conversational AI.
+tests/api-tests -> Contains the api tests of the project.
+tests/unit-tests/graph -> Contains the graph tests of the project.
+test3.py -> The first iteration of the graph
 
 ## Installation
 1. Clone the repository
@@ -95,7 +108,8 @@ docker-compose down -v --remove-orphans
 ```
 
 ## Endpoints
-#TODO: Missing Endpoints
+/ -> The main endpoint of the application. This endpoint is used to open up the UI.
+/chat -> The chat endpoint of the application. This endpoint is used to interact with the chatbot.
 
 ## Usage
 1. Open the application in your browser
@@ -104,9 +118,39 @@ http://localhost:8000
 ```
 2. Type your message in the input box and press enter to send the message to the chatbot.
 3. The chatbot will respond with a message.
-4. If you want to retrieve a document from Wikipedia, type `wiki: <query>` and press enter.
-5. If you want to retrieve a document from Web Search, type `search: <query>` and press enter.
-#TODO: Missing Usage Steps
+4. If you want to retrieve a document, type `/chat: <query>` and press enter.
+
+## State Diagram
+
+In this project, I took aspirations from Self-RAG and Adaptive RAG models. I used the LangGraph framework to build the conversational AI.
+
+In the earliest stages of the project, I've made this graph using Adaptive RAG:
+
+![graph.png](md-resources/graph.png)
+
+First iteration state diagram as follows:
+
+![testgraph.png](md-resources/testgraph.png)
+
+Second iteration state diagram as follows:
+
+![testgraph3.png](tests%2Funit-tests%2Fgraph%2Ftestgraph3.png)
+ 
+The final state diagram as follows:
+
+![main_graph.png](md-resources%2Fmain_graph.png)
+
+## UI Design
+
+The following image was the first draft of the UI design. The design was later changed to a more user-friendly design. 
+I prefer neobrutalist approach to UI design. That's why the design was improved to a more neobrutalist design.
+
+![img.png](md-resources/img.png)
+
+This design was later improved to the following design. The design is more user-friendly and easier to use. It featured
+neobrutalist design elements and a more user-friendly color scheme.
+
+![img_2.png](md-resources/img_2.png)
 
 ## Authors
 - [Oğuzhan Güngör](https://github.com/theFellandes/)

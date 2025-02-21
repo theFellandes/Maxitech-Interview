@@ -17,6 +17,7 @@ def main():
         "session_id": str(uuid.uuid4())
     }
     result = app.invoke(state)
+    app.get_graph().draw_mermaid_png(output_file_path="../../md-resources/main_graph.png")
     print("Final Answer:", result.get("final_answer"))
 
 if __name__ == "__main__":

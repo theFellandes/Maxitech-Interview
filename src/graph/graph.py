@@ -6,6 +6,10 @@ import src.graph.nodes as nodes
 
 
 def build_workflow() -> StateGraph:
+    """
+    Builds the workflow for the conversational agent.
+    :return: The graph representing the workflow.
+    """
     workflow = StateGraph(GraphState)
     workflow.add_node("detect_ambiguity", nodes.detect_ambiguity)
     workflow.add_node("clarify", nodes.clarify_question)
